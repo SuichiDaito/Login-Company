@@ -8,7 +8,7 @@ import 'package:login_demo/controller/call_services_api.dart';
 import 'package:login_demo/services/chopper_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginRequestBloc extends Bloc<LoginRequestEvent, LoginRequestState> {
+class LoginRequestBloc extends Bloc<LoginEvent, LoginRequestState> {
   final service = CallServicesApi.customerService;
 
   LoginRequestBloc() : super(LoginInitialLoad()) {
@@ -19,6 +19,17 @@ class LoginRequestBloc extends Bloc<LoginRequestEvent, LoginRequestState> {
     Logger.debugPrint("Login Bloc CREATE");
     emit(LoginLoadingInfo());
 
+    if (event.phoneNumber.isEmpty || event.password.isEmpty) {
+      emit(
+        ErrorValidateLoginInfo(
+          message: "Please check phoneNumber and password is not correct",
+        ),
+      );
+      // set return in here because event send a state, notification for user error.
+      // But it doesn't stop in here and cause overlapping states.
+      return;
+    }
+
     try {
       final response = await service.login({
         'phone_number': event.phoneNumber,
@@ -28,9 +39,9 @@ class LoginRequestBloc extends Bloc<LoginRequestEvent, LoginRequestState> {
       if (response.isSuccessful && response.body != null) {
         final body = response.body;
 
-        print('Status: ${response.statusCode}');
-        print('response body: ${response.body}');
-        print('Error: ${response.error}');
+        Logger.debugPrint('Status: ${response.statusCode}');
+        Logger.debugPrint('response body: ${response.body}');
+        Logger.debugPrint('Error: ${response.error}');
 
         if (body is Map<String, dynamic>) {
           if (body.containsKey('token')) {
@@ -47,13 +58,13 @@ class LoginRequestBloc extends Bloc<LoginRequestEvent, LoginRequestState> {
 
           emit(LoginLoadedInfo(customer: customer));
         } else {
-          emit(ErrorLoginInfo(messageError: "Map Data Error"));
+          emit(ErrorLoginInfoAPI(messageError: "Map Data Error"));
         }
       } else {
-        emit(ErrorLoginInfo(messageError: "Get Json Failure From Server"));
+        emit(ErrorLoginInfoAPI(messageError: "Get Json Failure From Server"));
       }
     } catch (e) {
-      emit(ErrorLoginInfo(messageError: "Connect Server Error"));
+      emit(ErrorLoginInfoAPI(messageError: "Connect Server Error"));
     }
   }
 }

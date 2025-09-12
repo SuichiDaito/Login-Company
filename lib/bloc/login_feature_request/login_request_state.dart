@@ -12,8 +12,14 @@ class LoginLoadedInfo extends LoginRequestState {
   LoginLoadedInfo({required this.customer});
 }
 
-class ErrorLoginInfo extends LoginRequestState {
+class ErrorLoginInfoAPI extends LoginRequestState {
   final String messageError;
 
-  ErrorLoginInfo({required this.messageError});
+  ErrorLoginInfoAPI({required this.messageError});
+}
+
+class ErrorValidateLoginInfo extends LoginRequestState {
+  final String message;
+
+  ErrorValidateLoginInfo({required this.message});
 }

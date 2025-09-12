@@ -6,18 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:login_demo/bloc/login_feature_request/login_request_event.dart';
 
-class ButtonLoginCustomer extends StatelessWidget {
+class ButtonSignupCustomer extends StatelessWidget {
   final String nameButton;
   final VoidCallback onPressed;
-  final Color colorShape;
-  final Color colorTextButton;
+  final Color backgroundColor;
 
-  ButtonLoginCustomer({
+  ButtonSignupCustomer({
     super.key,
     required this.nameButton,
     required this.onPressed,
-    required this.colorShape,
-    required this.colorTextButton,
+    required this.backgroundColor,
   });
 
   @override
@@ -28,14 +26,9 @@ class ButtonLoginCustomer extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 0.2,
-          backgroundColor: Colors.white,
+          backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadiusGeometry.all(Radius.circular(40)),
-          ),
-          side: BorderSide(
-            color: colorShape,
-            width: 0.5,
-            style: BorderStyle.solid,
           ),
         ),
         onPressed: onPressed,
@@ -43,7 +36,7 @@ class ButtonLoginCustomer extends StatelessWidget {
           nameButton,
           style: GoogleFonts.roboto(
             textStyle: TextStyle(
-              color: colorTextButton,
+              color: Colors.white,
               fontWeight: FontWeight.w600,
               fontSize: 16.0,
             ),
