@@ -1,5 +1,7 @@
 import 'package:login_demo/views/pages/details_login_screen.dart';
 import 'package:login_demo/views/sections/button_signup_customer.dart';
+import 'package:login_demo/views/sections/image_login_bear_empty.dart';
+import 'package:login_demo/views/sections/popup_login_sections.dart';
 
 import '../../bloc/login_feature_request/login_request_state.dart';
 import '../../constant/colors.dart';
@@ -30,14 +32,6 @@ class LoginScreen extends State<LoginScreenCustomer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Login Feature",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Colors.blueAccent,
-        centerTitle: true,
-      ),
       body: BlocConsumer<LoginRequestBloc, LoginRequestState>(
         builder: (context, state) {
           return Padding(
@@ -45,23 +39,15 @@ class LoginScreen extends State<LoginScreenCustomer> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  TextField(controller: phoneNumber),
-                  TextField(controller: password),
-                  SizedBox(height: 50),
-
+                  ImageLoginBearEmpty(),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 63),
+                    padding: EdgeInsets.fromLTRB(63, 32, 63, 0),
                     child: ButtonLoginCustomer(
                       nameButton: "Login",
                       colorShape: ColorButton.primaryColor,
                       colorTextButton: ColorButton.primaryColor,
                       onPressed: () {
-                        context.read<LoginRequestBloc>().add(
-                          LoginRequestEvent(
-                            phoneNumber: phoneNumber.text,
-                            password: password.text,
-                          ),
-                        );
+                        showRemarkPopup(context, phoneNumber, password);
                       },
                     ),
                   ),
