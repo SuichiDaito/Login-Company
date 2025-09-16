@@ -90,17 +90,7 @@ class LoginScreen extends State<LoginScreenCustomer> {
           );
         },
         listener: (context, state) {
-          if (state is ErrorLoginInfoAPI) {
-            SnackBarScaffold.showToast(state.messageError, false, context);
-          } else if (state is ErrorValidateLoginInfo) {
-            SnackBarScaffold.showToast(state.message, false, context);
-          } else if (state is LoginLoadedInfo) {
-            SnackBarScaffold.showToast("Login success ", true, context);
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => DetailsLoginScreen()),
-            );
-          }
+         
         },
       ),
     );

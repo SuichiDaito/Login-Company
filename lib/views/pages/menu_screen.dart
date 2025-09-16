@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:login_demo/bloc/login_feature_request/login_request_state.dart';
 import 'package:login_demo/views/sections/menu_section_customer.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:login_demo/bloc/login_feature_request/login_request_bloc.dart';
+import 'package:login_demo/bloc/login_feature_request/login_request_event.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -36,15 +40,31 @@ class MenuScreenState extends State<MenuScreen> {
             SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Text(
-                "Hello, User",
-                style: GoogleFonts.roboto(
-                  textStyle: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 15,
-                  ),
-                ),
+              child: BlocBuilder<LoginRequestBloc, LoginRequestState>(
+                builder: (context, state) {
+                  if (state is LoginLoadedInfo) {
+                    return Text(
+                      "Hello, ${state.customer.name}",
+                      style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 15,
+                        ),
+                      ),
+                    );
+                  }
+                  return Text(
+                    "Hello, User",
+                    style: GoogleFonts.roboto(
+                      textStyle: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
             Padding(
