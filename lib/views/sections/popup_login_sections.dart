@@ -38,7 +38,7 @@ void showRemarkPopup(
                 SnackBarScaffold.showToast(state.message, false, context);
               } else if (state is LoginLoadedInfo) {
                 SnackBarScaffold.showToast("Login success ", true, context);
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => DetailsLoginScreen()),
                 );

@@ -1,3 +1,6 @@
+import 'package:go_router/go_router.dart';
+
+import '../../constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login_demo/bloc/login_feature_request/login_request_state.dart';
@@ -13,9 +16,13 @@ class MenuScreen extends StatefulWidget {
 }
 
 class MenuScreenState extends State<MenuScreen> {
+  int _selectedIndex = 0;
+
+  final listScreen = ["/home", "/order_details", "/menu"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -205,6 +212,27 @@ class MenuScreenState extends State<MenuScreen> {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        selectedItemColor: ColorButton.primaryColor,
+        unselectedItemColor: Colors.grey,
+        currentIndex: _selectedIndex,
+        onTap: (value) {
+          setState(() {
+            _selectedIndex = value;
+            context.go(listScreen[value]);
+          });
+        },
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.outbox_rounded),
+            label: "Order",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.menu), label: "Menu"),
+        ],
       ),
     );
   }
