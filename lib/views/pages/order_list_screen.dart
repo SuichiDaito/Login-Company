@@ -27,7 +27,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
       localization.title_cancelled,
     ];
     return Scaffold(
-      backgroundColor: ConstantColor.colorNeutral4,
+      backgroundColor: ColorButton.colorNeutral4,
       appBar: AppBar(
         toolbarHeight: 44,
         backgroundColor: Colors.white,
@@ -35,7 +35,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
         title: Text(
           "Order List",
           style: TextStyle(
-            color: ConstantColor.colorNeutral1,
+            color: ColorButton.colorNeutral1,
             fontFamily: 'Roboto',
             fontSize: 24,
             fontWeight: FontWeight.w500,
