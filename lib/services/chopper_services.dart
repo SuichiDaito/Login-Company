@@ -12,4 +12,9 @@ abstract class CustomerChopperServices extends ChopperService {
   Future<Response<Map<String, dynamic>>> login(
     @Body() Map<String, dynamic> body,
   );
+
+  @GET(path: '/order/history')
+  Future<Response<Map<String, dynamic>>> orderList(
+    @Body() Map<String, dynamic> body,
+  );
 }

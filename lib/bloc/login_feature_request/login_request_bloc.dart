@@ -20,6 +20,7 @@ class LoginRequestBloc extends Bloc<LoginEvent, LoginRequestState> {
     emit(LoginLoadingInfo());
 
     if (event.phoneNumber.isEmpty || event.password.isEmpty) {
+      //state
       emit(
         ErrorValidateLoginInfo(
           message: "Please check phoneNumber and password is not correct",
@@ -30,6 +31,7 @@ class LoginRequestBloc extends Bloc<LoginEvent, LoginRequestState> {
       return;
     }
 
+    //request service to receive data
     try {
       final response = await service.login({
         'phone_number': event.phoneNumber,
@@ -44,20 +46,17 @@ class LoginRequestBloc extends Bloc<LoginEvent, LoginRequestState> {
         Logger.debugPrint('Error: ${response.error}');
 
         if (body is Map<String, dynamic>) {
-          if (body.containsKey('token')) {
-            final token = body['token'] as String;
-
-            final prefs = await SharedPreferences.getInstance();
-            await prefs.setString('token', token);
-          }
 
           final customerJson = response.body as Map<String, dynamic>;
           final customer = Customer.fromJson(customerJson);
 
-          print("Customer Model: ${customer}");
-
+          // send state for UI in here
+          // state name is LoginLoadedInfo and data is customer
           emit(LoginLoadedInfo(customer: customer));
+
         } else {
+          // send state error for UI in here
+          // state name is ErrorLoginInfoAPI with error message 
           emit(ErrorLoginInfoAPI(messageError: "Map Data Error"));
         }
       } else {

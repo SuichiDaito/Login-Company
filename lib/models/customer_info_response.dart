@@ -76,31 +76,4 @@ class Customer {
       newAbUser: json['new_ab_user'] as bool?,
     );
   }
-
-  // Map<String, dynamic> toJson() {
-  //   return {
-  //     'id': id,
-  //     'user_code': userCode,
-  //     'type_cd': typeCd,
-  //     'email': email,
-  //     'name': name,
-  //     'phone_number': phoneNumber,
-  //     'organization_id': organizationId,
-  //     'branch_id': branchId,
-  //     'status_cd': statusCd,
-  //     'notes': notes,
-  //     'sign_in_count': signInCount,
-  //     'referral_code': referralCode,
-  //     'last_sign_in': lastSignIn,
-  //     'withdrawal_reason': withdrawalReason,
-  //     'withdrawal_custom_reason': withdrawalCustomReason,
-  //     'edit_status': editStatus,
-  //     'invalid_login_count': invalidLoginCount,
-  //     'lock_user_at': lockUserAt,
-  //     'customer_key': customerKey,
-  //     'last_accessed_at': lastAccessedAt,
-  //     'token': token,
-  //     'new_ab_user': newAbUser,
-  //   };
-  // }
 }
